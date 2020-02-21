@@ -1,3 +1,3 @@
 # dotfiles
 
-Kent's Doddfiles... get it dot, dodd; yeah you get it.
+Dotfiles. Forked from kendodds/dotfiles.

@@ -4,6 +4,7 @@ set smartindent
 set copyindent
 set number
 set tabstop=2
+set softtabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
@@ -14,8 +15,10 @@ set noerrorbells
 set relativenumber
 set nowrap
 set mouse=a
-" colorscheme mustang
+set cursorline          " highlight current line
+set showmatch           " highlight matching [{()}]
 syntax on
+colorscheme brogrammer
 
 " autosave on focus lost
 :au FocusLost * silent! wa
@@ -23,5 +26,3 @@ syntax on
 " Spellcheck markdown
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.md set complete+=kspell
-
-

@@ -1,0 +1,50 @@
+[core]
+	excludesfile = /Users/Stan/.gitignore_global
+	editor = vim
+[diff]
+  tool = default-difftool
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = Stan Lindsey
+	email = contact@stanlindsey.net
+	signingkey = 4F7C895B
+[commit]
+	template = /Users/Stan/.stCommitMsg
+  gpgsign = true
+[credential]
+  helper = osxkeychain
+  useHttpPath = true
+[alias]
+  la = "!git config -l | grep alias | cut -c 7-"
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lo = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an %Creset%s' --date=short --first-parent --no-decorate
+  lot = log --pretty=format:'%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%ad %C(auto,green)%<(14,trunc)%aN%C(auto,reset)%s' --date=short  --first-parent --no-decorate
+  fp = !git fetch $1 && git pull $1 && :
+  fpm = fetch origin master:master
+  fpmr = !git fetch origin master:master && git rebase master && :
+  co = checkout
+  s = status
+	a = add .
+  pt = !git tag -l | xargs git tag -d && git fetch -t
+
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg
+[rebase]
+	autosquash = true
+[includeIf "gitdir:~/Projects-Dev-Folders/refinitiv"]
+  path = ~/Projects-Dev-Folders/refinitiv/.gitconfig_include
+[pull]
+	rebase = merges
+[push]
+	default = current

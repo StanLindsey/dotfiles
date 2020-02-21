@@ -21,63 +21,43 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 echo "Hello $(whoami)! Let's get you set up."
 
-echo "mkdir -p ${HOME}/code"
-mkdir -p "${HOME}/code"
-
 echo "installing homebrew"
 # install homebrew https://brew.sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 echo "brew installing stuff"
-# hub: a github-specific version of git
-# libdvdcss: makes handbreak capable of ripping DVDs
-# ripgrep: rg is faster than alternatives
+# git: git! ``
 # imagemagick: eventually I will need this for something
 # ffmpeg: eventually I'll need this for something
-# tree: really handy for listing out directories in text
-# bat: A cat(1) clone with syntax highlighting and Git integration.
-# switchaudio-osx: allows me to switch the audio device via the command line
-brew install git hub libdvdcss ripgrep imagemagick watchman tree bat \
-switchaudio-osx
-
-echo "installing node (via n-install)"
-curl -L https://git.io/n-install | bash
-
-echo "node --version: $(node --version)"
-echo "npm --version: $(npm --version)"
-
-echo "installing a few global npm packages"
-npm install --global serve diff-so-fancy fkill-cli npm-quick-run \
-semantic-release-cli npm-check-updates
+# trash: no need to rm -rf
+brew install git ffmpeg imagemagick trash \
 
 echo "installing apps with brew cask"
-brew cask install alfred google-chrome firefox brave-browser bettertouchtool divvy \
-bartender google-drive-file-stream itsycal visual-studio-code 1password dash \
-screenflow marshallofsound-google-play-music-player skype workflowy \
-sublime-text vlc discord obs handbrake zoomus betterzip avibrazil-rdm sip \
+brew cask install google-chrome firefox firefoxdeveloperedition \
+iterm2  bartender itsycal visual-studio-code sourcetree virtualbox \
+vlc obs zoomus betterzip docker rectangle atext code42-crashplan \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook \
-suspicious-package qlvideo spotify focus dropbox front qmoji slack
+google-backup-and-sync dropbox slack notion now postman rocket tg-pro \
+
 
 echo "Generating an RSA token for GitHub"
 mkdir -p ~/.ssh
 touch ~/.ssh/config
-ssh-keygen -t rsa -b 4096 -C "me+github@kentcdodds.com"
+ssh-keygen -t rsa -b 4096 -C "contact@stanlindsey.net"
 echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
 eval "$(ssh-agent -s)"
 echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
 
 echo "cloning dotfiles"
-git clone git@github.com:kentcdodds/dotfiles.git "${HOME}/dotfiles"
 ln -s "${HOME}/dotfiles/.zshrc" "${HOME}/.zshrc"
+ln -s "${HOME}/dotfiles/.oh-my-zsh" "${HOME}/.oh-my-zsh"
+ln -s "${HOME}/dotfiles/.gitconfig" "${HOME}/.gitconfig"
 ln -s "${HOME}/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
-ln -s "${HOME}/dotfiles/.my_bin" "${HOME}/.my_bin"
 ln -s "${HOME}/dotfiles/.vimrc" "${HOME}/.vimrc"
 ln -s "${HOME}/dotfiles/.vimrc-parts" "${HOME}/.vimrc-parts"
+ln -s "${HOME}/dotfiles/.stan.itermcolors" "${HOME}/.stan.itermcolors"
 
 echo "making system modifications:"
-
-# Make Chrome Two finger swipe for back and forward
-defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool TRUE
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -90,7 +70,7 @@ defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool TRUE
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
 
 # Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 86400
+# sudo pmset -a standbydelay 86400
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
@@ -105,7 +85,7 @@ sudo nvram SystemAudioVolume=" "
 # defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 # Always show scrollbars
-# defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
 # Disable the over-the-top focus ring animation
@@ -113,7 +93,7 @@ sudo nvram SystemAudioVolume=" "
 
 # Disable smooth scrolling
 # (Uncomment if you’re on an older Mac that messes up the animation)
-#defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
+defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
 # Increase window resize speed for Cocoa applications
 # defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -297,22 +277,25 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 # Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
 defaults write com.apple.finder QuitMenuItem -bool true
 
+# Finder: remove desktop
+defaults write com.apple.finder CreateDesktop -bool FALSE
+
 # Finder: disable window animations and Get Info animations
-# defaults write com.apple.finder DisableAllAnimations -bool true
+defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Set Desktop as the default location for new Finder windows
 # For other paths, use `PfLo` and `file:///full/path/here/`
-defaults write com.apple.finder NewWindowTarget -string "PfDe"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/"
+# defaults write com.apple.finder NewWindowTarget -string "PfDe"
+# defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/"
 
 # Show icons for hard drives, servers, and removable media on the desktop
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+# defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+# defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Finder: show hidden files by default
-#defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -494,17 +477,17 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 # 12: Notification Center
 # 1048576 is ⌘ I think
 # Top left screen corner → Desktop
-defaults write com.apple.dock wvous-tl-corner -int 4
-defaults write com.apple.dock wvous-tl-modifier -int 1048576
+# defaults write com.apple.dock wvous-tl-corner -int 4
+# defaults write com.apple.dock wvous-tl-modifier -int 1048576
 # Top right screen corner → Desktop
-defaults write com.apple.dock wvous-tr-corner -int 4
-defaults write com.apple.dock wvous-tr-modifier -int 1048576
+# defaults write com.apple.dock wvous-tr-corner -int 4
+# defaults write com.apple.dock wvous-tr-modifier -int 1048576
 # Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
-defaults write com.apple.dock wvous-bl-modifier -int 1048576
+# defaults write com.apple.dock wvous-bl-corner -int 5
+# defaults write com.apple.dock wvous-bl-modifier -int 1048576
 # Bottom right screen corner → Put display to sleep
-defaults write com.apple.dock wvous-br-corner -int 10
-defaults write com.apple.dock wvous-br-modifier -int 1048576
+# defaults write com.apple.dock wvous-br-corner -int 10
+# defaults write com.apple.dock wvous-br-modifier -int 1048576
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -724,7 +707,7 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 # open "${HOME}/init/Solarized Dark.itermcolors"
 
 # Don’t display the annoying prompt when quitting iTerm
-# defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 ###############################################################################
 # Time Machine                                                                #
@@ -854,6 +837,14 @@ defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls
 # Kill affected applications                                                  #
 ###############################################################################
 
+
+echo "Setting up JS Dev environment"
+source ~/.zshrc
+nvm install lts/*
+nvm use lts/*
+
+brew install yarn --without-node
+
 for app in "Activity Monitor" \
   "Address Book" \
   "Calendar" \
@@ -874,15 +865,12 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 
 printf "TODO:\n\
 install: \n\
-  battery indicator (App Store) \n\
-  Gifski (App Store) \n\
-  Runcat (App Store) \n\
-  Todoist (App Store) \n\
-  Webcam Settings (App Store) \n\
-  Audacity (https://www.audacityteam.org/download/) \n\
+  load iterm2 config into iterm2 \n\
+  install settings-sync in vscode \n\
+  load vscode settings \n\
+  run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
+  load atext settings \n\
 \n\
 Restart Terminal.app\n\
-copy git config from your backup/re-login \n\
-copy .npmrc from your backup/re-login \n\
 login to literally everything \n\
 "

@@ -1,115 +1,73 @@
-#!/bin/bash
+# Path to your oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
 
-export TERM=xterm-256color
-export CLICOLOR=1
-export LSCOLORS=Fafacxdxbxegedabagacad
+ulimit -n 1024
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+# Stan Favs: mh, agnoster,
+ZSH_THEME=cobalt2
+DEFAULT_USER="Stan"
 
-# PROMPT STUFF
-GREEN=$(tput setaf 2);
-YELLOW=$(tput setaf 3);
-RESET=$(tput sgr0);
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
 
-function git_branch {
-  # Shows the current branch if in a git repository
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \(\1\)/';
-}
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
 
-function random_element {
-  declare -a array=("$@")
-  r=$((RANDOM % ${#array[@]}))
-  printf "%s\n" "${array[$r]}"
-}
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(zsh-nvm git brew osx fasd zsh-autosuggestions)
 
-# Default Prompt
-setEmoji () {
-  EMOJI="$*"
-  DISPLAY_DIR='$(dirs)'
-  DISPLAY_BRANCH='$(git_branch)'
-  PROMPT="${YELLOW}${DISPLAY_DIR}${GREEN}${DISPLAY_BRANCH}${RESET} ${EMOJI}"$'\n'"$ ";
-}
+#Set brew permissions
+#alias brew='$echo <password> | sudo chown -R $(whoami):admin /usr/local/{bin,share} && brew';
 
-newRandomEmoji () {
-  setEmoji "$(random_element 😅 👽 🔥 🚀 👻 ⛄ 👾 🍔 😄 🍰 🐑 😎 🏎 🤖 😇 😼 💪 🦄 🥓 🌮 🎉 💯 ⚛️ 🐠 🐳 🐿 🥳 🤩 🤯 🤠 👨‍💻 🦸‍ 🧝‍ 🧞‍ 🧙‍ 👨‍🚀 👨‍🔬 🕺 🦁 🐶 🐵 🐻 🦊 🐙 🦎 🦖 🦕 🦍 🦈 🐊 🦂 🐍 🐢 🐘 🐉 🦚 ✨ ☄️ ⚡️ 💥 💫 🧬 🔮 ⚗️ 🎊 🔭 ⚪️ 🔱)"
-}
+# User configuration
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/eslint/:/usr/local/lib/"
 
-newRandomEmoji
+source $ZSH/oh-my-zsh.sh
+source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-alias jestify="PS1=\"🃏\"$'\n'\"$ \"";
-alias testinglibify="PS1=\"🐙\"$'\n'\"$ \"";
-alias cypressify="PS1=\"🌀\"$'\n'\"$ \"";
-alias staticify="PS1=\"🚀\"$'\n'\"$ \"";
-alias nodeify="PS1=\"💥\"$'\n'\"$ \"";
-alias reactify="PS1=\"⚛️\"$'\n'\"$ \"";
-alias harryify="PS1=\"🧙‍\"$'\n'\"$ \"";
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-# allow substitution in PS1
-setopt promptsubst
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-# history size
-HISTSIZE=5000
-HISTFILESIZE=10000
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-SAVEHIST=5000
-setopt EXTENDED_HISTORY
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
-# share history across multiple zsh sessions
-setopt SHARE_HISTORY
-# append to history
-setopt APPEND_HISTORY
-# adds commands as they are typed, not at shell exit
-setopt INC_APPEND_HISTORY
-# do not store duplications
-setopt HIST_IGNORE_DUPS
+# ssh
+ export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# PATH ALTERATIONS
-## Node
-PATH="/usr/local/bin:$PATH:./node_modules/.bin";
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+#. `brew --prefix`/etc/profile.d/z.sh
 
-## Yarn
-PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# Custom bins
-PATH="$PATH:$HOME/.bin";
-# dotfile bins
-PATH="$PATH:$HOME/.my_bin";
-
-# CDPATH ALTERATIONS
-CDPATH=.:$HOME:$HOME/code:$HOME/Desktop
-# CDPATH=($HOME $HOME/code $HOME/Desktop)
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # Custom Aliases
 alias c="code .";
-alias ll="ls -1a";
-alias ..="cd ../";
-alias ..l="cd ../ && ll";
+alias ls='gls --color -h --group-directories-first -a'
 alias pg="echo 'Pinging Google' && ping www.google.com";
-alias vz="vim ~/.zshrc";
-alias cz="code ~/.zshrc";
-alias sz="source ~/.zshrc";
-alias de="cd ~/Desktop";
-alias d="cd ~/code";
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias deleteDSFiles="find . -name '.DS_Store' -type f -delete"
-alias kcd-oss="npx -p yo -p generator-kcd-oss -c 'yo kcd-oss'";
-function crapp { cp -R ~/.crapp "$@"; }
-function mcrapp { cp -R ~/.mcrapp "$@"; }
 alias npm-update="npx npm-check -u";
 alias yarn-update="yarn upgrade-interactive --latest";
-alias lt="pushd ~/code/love-texts && serve || popd";
-alias flushdns="sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
-alias dont_index_node_modules='find . -type d -name "node_modules" -exec touch "{}/.metadata_never_index" \;';
-
-## git aliases
-function gc { git commit -m "$@"; }
-alias gs="git status";
-alias gp="git pull";
-alias gf="git fetch";
-alias gpush="git push";
-alias gd="git diff";
-alias ga="git add .";
-dif() { git diff --color --no-index "$1" "$2" | diff-so-fancy; }
-cdiff() { code --diff "$1" "$2"; }
 
 ## npm aliases
 alias ni="npm install";
@@ -131,35 +89,16 @@ alias yab="yarn run build";
 alias yat="yarn run test";
 alias yav="yarn run validate";
 alias yoff="yarn add --offline";
-alias ypm="echo \"Installing deps without lockfile and ignoring engines\" && yarn install --no-lockfile --ignore-engines"
 
-## use hub for git
-alias git=hub
-
-# Custom functions
-mg () { mkdir "$@" && cd "$@" || exit; }
-shorten() { node ~/code/kcd.im/node_modules/.bin/netlify-shortener "$1" "$2"; }
-cdl() { cd "$@" && ll; }
-npm-latest() { npm info "$1" | grep latest; }
-killport() { lsof -i tcp:"$*" | awk 'NR!=1 {print $2}' | xargs kill -9 ;}
-function quit () {
-  if [ -z "$1" ]; then
-    # display usage if no parameters given
-    echo "Usage: quit appname"
-  else
-    for appname in $1; do
-    osascript -e 'quit app "'$appname'"'
-    done
-  fi
+# Recursively make directories & touch the file
+rtouch() {
+  for p do
+    if [[ "$p" =~ '/'$ ]]; then
+      mkdir -p -- "$p"
+    else
+      _dir="$(dirname -- "$p")"
+      mkdir -p -- "$_dir" &&
+        touch -- "$p"
+    fi
+  done
 }
-
-autoload -Uz compinit && compinit
-# Bash completion
-# TODO: couldn't get this to work with zsh...
-# autoload bashcompinit
-# bashcompinit
-# if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-# . "$(brew --prefix)/etc/bash_completion"
-# fi
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
