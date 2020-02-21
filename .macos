@@ -38,9 +38,9 @@ brew tap homebrew/cask-versions
 
 brew cask install google-chrome firefox firefox-developer-edition \
 iterm2  bartender itsycal visual-studio-code sourcetree virtualbox \
-vlc obs zoomus betterzip docker rectangle atext code42-crashplan \
+vlc obs zoomus betterzip docker rectangle atext \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook \
-google-backup-and-sync dropbox slack notion now postman rocket tg-pro
+google-backup-and-sync dropbox slack notion now postman rocket tg-pro --force
 
 echo "cloning dotfiles"
 ln -s "${HOME}/dotfiles/.zshrc" "${HOME}/.zshrc"
@@ -871,7 +871,8 @@ install: \n\
   install settings-sync in vscode \n\
   load vscode settings \n\
   run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
-  load atext settings from dropbox backup\n\
+  load atext settings from dropbox backup \n\
+  install crashplan small business \n\
 \n\
 Restart Terminal.app\n\
 login to literally everything \n\
