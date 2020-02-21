@@ -872,6 +872,7 @@ install: \n\
   load vscode settings \n\
   run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
   load atext settings from dropbox backup \n\
+  install fonts \n\
   install crashplan small business \n\
 \n\
 Restart Terminal.app\n\
