@@ -40,15 +40,6 @@ vlc obs zoomus betterzip docker rectangle atext code42-crashplan \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook \
 google-backup-and-sync dropbox slack notion now postman rocket tg-pro \
 
-
-echo "Generating an RSA token for GitHub"
-mkdir -p ~/.ssh
-touch ~/.ssh/config
-ssh-keygen -t rsa -b 4096 -C "contact@stanlindsey.net"
-echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
-eval "$(ssh-agent -s)"
-echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
-
 echo "cloning dotfiles"
 ln -s "${HOME}/dotfiles/.zshrc" "${HOME}/.zshrc"
 ln -s "${HOME}/dotfiles/.oh-my-zsh" "${HOME}/.oh-my-zsh"
@@ -845,6 +836,14 @@ nvm install lts/*
 nvm use lts/*
 
 brew install yarn --without-node
+
+echo "Generating an RSA token for GitHub"
+mkdir -p ~/.ssh
+touch ~/.ssh/config
+ssh-keygen -t rsa -b 4096 -C "contact@stanlindsey.net"
+echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
+eval "$(ssh-agent -s)"
+echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
 
 for app in "Activity Monitor" \
   "Address Book" \
