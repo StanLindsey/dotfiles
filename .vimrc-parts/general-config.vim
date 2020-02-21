@@ -18,7 +18,7 @@ set mouse=a
 set cursorline          " highlight current line
 set showmatch           " highlight matching [{()}]
 syntax on
-colorscheme brogrammer
+" colorscheme brogrammer
 
 " autosave on focus lost
 :au FocusLost * silent! wa

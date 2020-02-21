@@ -1,11 +1,11 @@
 [core]
-	excludesfile = /Users/Stan/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = vim
 [diff]
   tool = default-difftool
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
 [mergetool "vscode"]
@@ -16,7 +16,7 @@
 [user]
 	name = Stan Lindsey
 	email = contact@stanlindsey.net
-	signingkey = 4F7C895B
+	signingkey = 732E3151
 [commit]
 	template = /Users/Stan/.stCommitMsg
   gpgsign = true
@@ -39,11 +39,9 @@
   pt = !git tag -l | xargs git tag -d && git fetch -t
 
 [gpg]
-	program = /usr/local/MacGPG2/bin/gpg
+	program = /usr/local/bin/gpg
 [rebase]
 	autosquash = true
-[includeIf "gitdir:~/Projects-Dev-Folders/refinitiv"]
-  path = ~/Projects-Dev-Folders/refinitiv/.gitconfig_include
 [pull]
 	rebase = merges
 [push]

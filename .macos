@@ -31,16 +31,22 @@ echo "brew installing stuff"
 # imagemagick: eventually I will need this for something
 # ffmpeg: eventually I'll need this for something
 # trash: no need to rm -rf
-brew install git ffmpeg imagemagick trash \
+brew install git ffmpeg imagemagick trash gnupg
 
 echo "installing apps with brew cask"
 brew tap homebrew/cask-versions
 
 brew cask install google-chrome firefox firefox-developer-edition \
 iterm2  bartender itsycal visual-studio-code sourcetree virtualbox \
-vlc obs zoomus betterzip docker rectangle atext \
-qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook \
+vlc obs zoomus betterzip docker rectangle atext gpg-suite \
+qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook qlimagesize qlvideo \
 google-backup-and-sync dropbox slack notion now postman rocket tg-pro --force
+
+# remove quarantine for quicklook plugins
+xattr -d -r com.apple.quarantine ~/Library/QuickLook
+
+echo "install vundle"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 echo "cloning dotfiles"
 ln -s "${HOME}/dotfiles/.zshrc" "${HOME}/.zshrc"
@@ -49,7 +55,6 @@ ln -s "${HOME}/dotfiles/.gitconfig" "${HOME}/.gitconfig"
 ln -s "${HOME}/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
 ln -s "${HOME}/dotfiles/.vimrc" "${HOME}/.vimrc"
 ln -s "${HOME}/dotfiles/.vimrc-parts" "${HOME}/.vimrc-parts"
-ln -s "${HOME}/dotfiles/.stan.itermcolors" "${HOME}/.stan.itermcolors"
 
 echo "making system modifications:"
 
@@ -70,7 +75,7 @@ echo "making system modifications:"
 sudo nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
-# defaults write com.apple.universalaccess reduceTransparency -bool true
+defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Set highlight color to green
 # defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
@@ -390,13 +395,13 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 16 pixels
-defaults write com.apple.dock tilesize -int 16
+# defaults write com.apple.dock tilesize -int 16
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
 
 # Minimize windows into their application’s icon
-defaults write com.apple.dock minimize-to-application -bool true
+# defaults write com.apple.dock minimize-to-application -bool true
 
 # Enable spring loading for all Dock items
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
@@ -837,7 +842,7 @@ source ~/.zshrc
 nvm install lts/*
 nvm use lts/*
 
-brew install yarn --without-node
+brew install yarn --ignore-dependencies
 
 echo "Generating an RSA token for GitHub"
 mkdir -p ~/.ssh
@@ -866,15 +871,14 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 
 
 printf "TODO:\n\
-install: \n\
-  load iterm2 config into iterm2 \n\
-  install settings-sync in vscode \n\
-  load vscode settings \n\
-  run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
-  load atext settings from dropbox backup \n\
-  install fonts \n\
-  install crashplan small business \n\
-\n\
+load iterm2 config into iterm2 \n\
+install settings-sync in vscode \n\
+load vscode settings \n\
+run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
+load atext settings from dropbox backup \n\
+install fonts \n\
+install crashplan small business \n\
+transfer GPG keys \n\
 Restart Terminal.app\n\
 login to literally everything \n\
 "

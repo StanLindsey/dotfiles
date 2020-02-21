@@ -8,7 +8,7 @@ ulimit -n 1024
 # time that oh-my-zsh is loaded.
 # Stan Favs: mh, agnoster,
 ZSH_THEME=cobalt2
-DEFAULT_USER="Stan"
+DEFAULT_USER="stanlindsey"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -20,7 +20,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-nvm git brew osx fasd zsh-autosuggestions)
+plugins=(zsh-nvm git brew osx npm z fasd zsh-autosuggestions)
 
 #Set brew permissions
 #alias brew='$echo <password> | sudo chown -R $(whoami):admin /usr/local/{bin,share} && brew';

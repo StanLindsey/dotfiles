@@ -26,6 +26,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'dterei/VimCobaltColourScheme'
 
 Plugin 'embear/vim-localvimrc'
 
