@@ -27,6 +27,8 @@ Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'dterei/VimCobaltColourScheme'
+Plugin 'prettier/vim-prettier'
+Plugin 'luochen1990/rainbow'
 
 Plugin 'embear/vim-localvimrc'
 

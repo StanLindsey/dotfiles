@@ -38,7 +38,7 @@ brew tap homebrew/cask-versions
 
 brew cask install google-chrome firefox firefox-developer-edition \
 iterm2  bartender itsycal visual-studio-code sourcetree virtualbox \
-vlc obs zoomus betterzip docker rectangle atext gpg-suite \
+vlc obs zoomus betterzip docker rectangle atext gpg-suite  \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook qlimagesize qlvideo \
 google-backup-and-sync dropbox slack notion now postman rocket tg-pro --force
 
@@ -55,6 +55,9 @@ ln -s "${HOME}/dotfiles/.gitconfig" "${HOME}/.gitconfig"
 ln -s "${HOME}/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
 ln -s "${HOME}/dotfiles/.vimrc" "${HOME}/.vimrc"
 ln -s "${HOME}/dotfiles/.vimrc-parts" "${HOME}/.vimrc-parts"
+
+echo "install xcode"
+xcode-select --install
 
 echo "making system modifications:"
 
@@ -191,19 +194,19 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 ###############################################################################
 
 # Trackpad: enable tap to click for this user and for the login screen
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # enable three finger drag on trackpad
 defaults write http://com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -int 1
 defaults write http://com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1
 
 # Trackpad: map bottom right corner to right-click
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
 # Disable “natural” (Lion-style) scrolling
 # defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
@@ -243,7 +246,7 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # sudo systemsetup -settimezone "Europe/Brussels" > /dev/null
 
 # Stop iTunes from responding to the keyboard media keys
-#launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
 ###############################################################################
 # Screen                                                                      #
@@ -703,7 +706,8 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # Install the Solarized Dark theme for iTerm
-# open "${HOME}/init/Solarized Dark.itermcolors"
+open "${HOME}/dotfiles/cobolt2.itermcolors"
+
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
@@ -844,6 +848,11 @@ nvm use --lts
 
 brew install yarn --ignore-dependencies
 
+npm install -g git-cz
+
+echo "install prettier for vim"
+yarn --cwd ~/.vim/bundle/vim-prettier install
+
 echo "Generating an RSA token for GitHub"
 mkdir -p ~/.ssh
 touch ~/.ssh/config
@@ -878,7 +887,7 @@ run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
 load atext settings from dropbox backup \n\
 install fonts \n\
 install crashplan small business \n\
-transfer GPG keys \n\
+transfer GPG keys from previous machine \n\
 Restart Terminal.app\n\
 login to literally everything \n\
 "
