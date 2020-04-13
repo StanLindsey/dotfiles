@@ -31,14 +31,14 @@ echo "brew installing stuff"
 # imagemagick: eventually I will need this for something
 # ffmpeg: eventually I'll need this for something
 # trash: no need to rm -rf
-brew install git ffmpeg imagemagick trash gnupg
+brew install git ffmpeg imagemagick trash gnupg watchman
 
 echo "installing apps with brew cask"
 brew tap homebrew/cask-versions
 
 brew cask install google-chrome firefox firefox-developer-edition \
 iterm2  bartender itsycal visual-studio-code sourcetree virtualbox \
-vlc obs zoomus betterzip docker rectangle atext gpg-suite  \
+vlc obs zoomus betterzip docker rectangle atext gpg-suite intel-power-gadget \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook qlimagesize qlvideo \
 google-backup-and-sync dropbox slack notion now postman rocket tg-pro --force
 
@@ -229,7 +229,7 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain InitialKeyRepeat -int 25
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
@@ -848,7 +848,7 @@ nvm use --lts
 
 brew install yarn --ignore-dependencies
 
-npm install -g git-cz
+npm install -g git-cz now
 
 echo "install prettier for vim"
 yarn --cwd ~/.vim/bundle/vim-prettier install

@@ -24,13 +24,15 @@
   helper = osxkeychain
   useHttpPath = true
 [alias]
+	b = branch --sort=-committerdate
   la = "!git config -l | grep alias | cut -c 7-"
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
   ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
   ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   lo = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an %Creset%s' --date=short --first-parent --no-decorate
   lot = log --pretty=format:'%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%ad %C(auto,green)%<(14,trunc)%aN%C(auto,reset)%s' --date=short  --first-parent --no-decorate
-  fp = !git fetch $1 && git pull $1 && :
+  f = !git fetch --all
+  fp = !git fetch --all && git pull $1 && :
   fpm = fetch origin master:master
   fpmr = !git fetch origin master:master && git rebase master && :
   co = checkout
@@ -46,3 +48,5 @@
 	rebase = merges
 [push]
 	default = current
+[pager]
+	branch = false

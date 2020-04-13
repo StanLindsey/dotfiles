@@ -20,13 +20,14 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-nvm git brew osx npm z fasd zsh-autosuggestions)
+plugins=(nvm git brew osx npm yarn z fasd zsh-autosuggestions)
 
 #Set brew permissions
 #alias brew='$echo <password> | sudo chown -R $(whoami):admin /usr/local/{bin,share} && brew';
 
 # User configuration
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/eslint/:/usr/local/lib/"
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -102,3 +103,6 @@ rtouch() {
     fi
   done
 }
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
