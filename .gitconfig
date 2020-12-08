@@ -25,6 +25,7 @@
   useHttpPath = true
 [alias]
 	b = branch --sort=-committerdate
+	ball = branch -a
   la = "!git config -l | grep alias | cut -c 7-"
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
   ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
@@ -33,12 +34,18 @@
   lot = log --pretty=format:'%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%ad %C(auto,green)%<(14,trunc)%aN%C(auto,reset)%s' --date=short  --first-parent --no-decorate
   f = !git fetch --all
   fp = !git fetch --all && git pull $1 && :
-  fpm = fetch origin master:master
+  fpm = !git fetch --all && git fetch origin master:master
   fpmr = !git fetch origin master:master && git rebase master && :
+  rm = rebase master
+  rmi = rebase master -i
   co = checkout
-  s = status
+  s = status -sb
 	a = add .
+	ac = !git add . && git commit
   pt = !git tag -l | xargs git tag -d && git fetch -t
+  code-changes = "!git log --format=format: --name-only | egrep -v '^$' | sort | uniq -c | sort -rg | head -20"
+  cc = "!git code-changes"
+	um = branch --set-upstream-to=origin
 
 [gpg]
 	program = /usr/local/bin/gpg

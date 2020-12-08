@@ -31,13 +31,13 @@ echo "brew installing stuff"
 # imagemagick: eventually I will need this for something
 # ffmpeg: eventually I'll need this for something
 # trash: no need to rm -rf
-brew install git ffmpeg imagemagick trash gnupg watchman
+brew install git ffmpeg imagemagick trash gnupg watchman nextdns/tap/nextdns composer pgcli postgres graphviz
 
 echo "installing apps with brew cask"
 brew tap homebrew/cask-versions
 
-brew cask install google-chrome firefox firefox-developer-edition \
-iterm2  bartender itsycal visual-studio-code sourcetree virtualbox \
+brew cask install google-chrome firefox firefox-developer-edition zsh-syntax-highlighting \
+iterm2 bartender itsycal visual-studio-code sourcetree \
 vlc obs zoomus betterzip docker rectangle atext gpg-suite intel-power-gadget \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook qlimagesize qlvideo \
 google-backup-and-sync dropbox slack notion now postman rocket tg-pro --force
@@ -808,7 +808,7 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 ###############################################################################
 
 # Disable automatic emoji substitution (i.e. use plain text smileys)
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
 # Disable smart quotes as it’s annoying for messages that contain code
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
@@ -853,7 +853,7 @@ npm install -g git-cz now
 echo "install prettier for vim"
 yarn --cwd ~/.vim/bundle/vim-prettier install
 
-echo "Generating an RSA token for GitHub"
+echo "Generating an RSA token for GitHub, Gitlab Etc"
 mkdir -p ~/.ssh
 touch ~/.ssh/config
 ssh-keygen -t rsa -b 4096 -C "contact@stanlindsey.net"
@@ -883,7 +883,7 @@ printf "TODO:\n\
 load iterm2 config into iterm2 \n\
 install settings-sync in vscode \n\
 load vscode settings \n\
-run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub rsa key \n\
+run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub, Gitlab Etc rsa key \n\
 load atext settings from dropbox backup \n\
 install fonts \n\
 install crashplan small business \n\
