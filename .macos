@@ -31,12 +31,12 @@ echo "brew installing stuff"
 # imagemagick: eventually I will need this for something
 # ffmpeg: eventually I'll need this for something
 # trash: no need to rm -rf
-brew install git ffmpeg imagemagick trash gnupg watchman nextdns/tap/nextdns composer pgcli postgres graphviz
+brew install git ffmpeg imagemagick trash gnupg watchman nextdns/tap/nextdns composer pgcli postgres graphviz zsh-syntax-highlighting
 
 echo "installing apps with brew cask"
 brew tap homebrew/cask-versions
 
-brew cask install google-chrome firefox firefox-developer-edition zsh-syntax-highlighting \
+brew install --cask google-chrome firefox firefox-developer-edition \
 iterm2 bartender itsycal visual-studio-code sourcetree \
 vlc obs zoomus betterzip docker rectangle atext gpg-suite intel-power-gadget \
 qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook qlimagesize qlvideo \
@@ -843,6 +843,7 @@ defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls
 
 echo "Setting up JS Dev environment"
 source ~/.zshrc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 nvm install --lts
 nvm use --lts
 
